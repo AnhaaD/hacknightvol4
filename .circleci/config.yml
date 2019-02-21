@@ -29,7 +29,7 @@ jobs:
       - PROJECT_NAME: "hacknightvol4"
       - GOOGLE_PROJECT_ID: "united-tempest-228204"
       - GOOGLE_COMPUTE_ZONE: "asia-east1-a"
-      - GOOGLE_CLUSTER_NAME: "hacknightvol4-cluster1"
+      - GOOGLE_CLUSTER_NAME: "hacknightvol4-cluster2"
     steps:
       - checkout
       - run: 
