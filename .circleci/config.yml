@@ -27,7 +27,7 @@ jobs:
       - image: google/cloud-sdk
     environment:
       - PROJECT_NAME: "hacknightvol4"
-      - GOOGLE_PROJECT_ID: "united-tempest-228204"
+      - GOOGLE_PROJECT_ID: "hacknightvol4-233111"
       - GOOGLE_COMPUTE_ZONE: "asia-east1-a"
       - GOOGLE_CLUSTER_NAME: "hacknightvol4-cluster"
     steps:
