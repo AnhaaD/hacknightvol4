@@ -21,10 +21,9 @@ Generating a new SSH key
     $ pbcopy < ~/.ssh/id_rsa.pub
 
 ```
-```
+```bash
 https://help.github.com/en/articles/adding-a-new-ssh-key-to-your-github-account
 
-```bash
 # create .circleCI config file
 version: 2
 jobs:
