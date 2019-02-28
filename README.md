@@ -1,0 +1,90 @@
+# hacknightvol4
+### Instructions
+```
+git clone https://github.com/anhaaD/hacknightvol4.git
+cd hacknightvol4
+```
+
+
+```bash
+# create .circleCI config file
+version: 2
+jobs:
+  build_and_test:
+    docker:
+      - image: circleci/node:10
+    working_directory: ~/repo
+    steps:
+      - checkout
+      - restore_cache:
+          keys:
+            - v1-dependencies-{{ checksum "package.json" }}
+            - v1-dependencies-
+      - run:
+          name: Install dependencies
+          command: npm install
+      - save_cache:
+          paths:
+            - node_modules
+          key: v1-dependencies-{{ checksum "package.json" }}
+      - run:
+          name: Run tests
+          command: npm test
+      - store_test_results:
+          path: test-results
+  deploy_to_staging:
+    docker:
+      - image: google/cloud-sdk
+    environment:
+      - PROJECT_NAME: "hacknightvol4"  <----- Өөрчлөх
+      - GOOGLE_PROJECT_ID: "united-tempest-228204"  <----- Өөрчлөх
+      - GOOGLE_COMPUTE_ZONE: "asia-east1-a" 
+      - GOOGLE_CLUSTER_NAME: "hacknightvol4-cluster"  <----- Өөрчлөх
+    steps:
+      - checkout
+      - run: 
+          name: Setup Google Cloud SDK 
+          command: |
+            apt-get install -qq -y gettext
+            echo $GOOGLE_AUTH > ${HOME}/gcloud-service-key.json
+            gcloud auth activate-service-account --key-file=${HOME}/gcloud-service-key.json
+            gcloud --quiet config set project ${GOOGLE_PROJECT_ID}
+            gcloud --quiet container clusters create ${GOOGLE_CLUSTER_NAME} --zone ${GOOGLE_COMPUTE_ZONE} 
+            gcloud --quiet config set project ${GOOGLE_PROJECT_ID}
+            gcloud --quiet config set compute/zone ${GOOGLE_COMPUTE_ZONE}
+            gcloud --quiet container clusters get-credentials ${GOOGLE_CLUSTER_NAME}
+      - setup_remote_docker
+      - run: 
+          name: Docker build and  push
+          command: |
+            docker build \
+              --build-arg COMMIT_REF=${CIRCLE_SHA1} \
+              --build-arg BUILD_DATE=`date -u +”%Y-%m-%dT%H:%M:%SZ”` \
+              -t ${PROJECT_NAME} .
+            docker tag ${PROJECT_NAME} eu.gcr.io/${GOOGLE_PROJECT_ID}/${PROJECT_NAME}:${CIRCLE_SHA1}
+            gcloud auth print-access-token | docker login -u oauth2accesstoken --password-stdin https://eu.gcr.io
+            docker push eu.gcr.io/${GOOGLE_PROJECT_ID}/${PROJECT_NAME}:${CIRCLE_SHA1}
+      - run: 
+          name: Deploy to Kubernetes
+          command: |
+            envsubst < ${HOME}/project/k8s.yml > ${HOME}/patched_k8s.yml
+            kubectl apply -f ${HOME}/patched_k8s.yml
+            kubectl rollout status deployment/${PROJECT_NAME}
+workflows:
+  version: 2
+  build_test_deploy:
+    jobs:
+      - build_and_test
+      - deploy_to_staging:
+          requires:
+            - build_and_test
+          filters:
+            branches:
+              only: master
+```
+
+```bash
+
+```
+
+#### Survey
