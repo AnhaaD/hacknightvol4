@@ -36,9 +36,9 @@ jobs:
       - image: google/cloud-sdk
     environment:
       - PROJECT_NAME: "hacknightvol4"  <----- Өөрчлөх
-      - GOOGLE_PROJECT_ID: "united-tempest-228204"  <----- Өөрчлөх
+      - GOOGLE_PROJECT_ID: "united-tempest-228204"  // <----- Өөрчлөх
       - GOOGLE_COMPUTE_ZONE: "asia-east1-a" 
-      - GOOGLE_CLUSTER_NAME: "hacknightvol4-cluster"  <----- Өөрчлөх
+      - GOOGLE_CLUSTER_NAME: "hacknightvol4-cluster"  // <----- Өөрчлөх
     steps:
       - checkout
       - run: 
@@ -83,7 +83,12 @@ workflows:
 ```
 
 ```bash
-
+# Login CircleCI 
+https://circleci.com/
+```
+```bash
+# Login CircleCI 
+https://circleci.com/
 ```
 
 #### Survey
