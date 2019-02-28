@@ -1,10 +1,29 @@
-# hacknightvol4
 ### Instructions
+
 ```
-git clone https://github.com/anhaaD/hacknightvol4.git
+Fork Repo https://github.com/anhaaD/hacknightvol4.git
+```
+
+```
+git clone https://github.com/$YOURUSERNAME/hacknightvol4.git
 cd hacknightvol4
 ```
 
+```bash
+# Configure SSH on github
+Generating a new SSH key
+
+    Open Terminal.
+
+```bash
+
+    $ ssh-keygen -t rsa -b 4096 -C "your_email@example.com"
+
+    $ pbcopy < ~/.ssh/id_rsa.pub
+
+```
+```
+https://help.github.com/en/articles/adding-a-new-ssh-key-to-your-github-account
 
 ```bash
 # create .circleCI config file
@@ -37,9 +56,9 @@ jobs:
       - image: google/cloud-sdk
     environment:
       - PROJECT_NAME: "hacknightvol4"  <----- Өөрчлөх
-      - GOOGLE_PROJECT_ID: "united-tempest-228204"  <----- Өөрчлөх
+      - GOOGLE_PROJECT_ID: "united-tempest-228204"  // <----- Өөрчлөх
       - GOOGLE_COMPUTE_ZONE: "asia-east1-a" 
-      - GOOGLE_CLUSTER_NAME: "hacknightvol4-cluster"  <----- Өөрчлөх
+      - GOOGLE_CLUSTER_NAME: "hacknightvol4-cluster"  // <----- Өөрчлөх
     steps:
       - checkout
       - run: 
@@ -84,6 +103,13 @@ workflows:
 ```
 
 ```bash
+# Login CircleCI 
+https://circleci.com/
+```
+```bash
+# Browse Project From github
+
+hacknightvol4
 
 ```
 
