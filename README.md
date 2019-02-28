@@ -9,7 +9,6 @@ git clone https://github.com/$YOURUSERNAME/hacknightvol4.git
 cd hacknightvol4
 ```
 
-```bash
 # Configure SSH on github
 Generating a new SSH key
 
@@ -21,8 +20,20 @@ Generating a new SSH key
     $ pbcopy < ~/.ssh/id_rsa.pub
 
 ```
-```bash
 https://help.github.com/en/articles/adding-a-new-ssh-key-to-your-github-account
+
+
+```bash
+
+# Google cloud login
+https://console.cloud.google.com/
+```
+```bash
+
+# Create Api Credential
+and Download .Json file
+```
+```bash
 
 # create .circleCI config file
 version: 2
@@ -110,5 +121,9 @@ https://circleci.com/
 hacknightvol4
 
 ```
+```bash
+# ADD Variable on CircleCI 
 
+Copy downloaded google credential and paste --> $GOOGLE_AUTH  
+```
 #### Survey
