@@ -15,7 +15,6 @@ Generating a new SSH key
 
     Open Terminal.
 
-```bash
 
     $ ssh-keygen -t rsa -b 4096 -C "your_email@example.com"
 
